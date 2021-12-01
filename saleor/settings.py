@@ -22,6 +22,7 @@ from sentry_sdk.integrations.logging import ignore_logger
 from . import patched_print_object
 from .core.languages import LANGUAGES as CORE_LANGUAGES
 
+from dotenv import load_dotenv
 
 def get_list(text):
     return [item.strip() for item in text.split(",")]
@@ -36,6 +37,9 @@ def get_bool_from_env(name, default_value):
             raise ValueError("{} is an invalid value for {}".format(value, name)) from e
     return default_value
 
+PROJECT_ROOT = os.path.normpath(os.path.join(os.path.dirname(__file__), ".."))
+
+load_dotenv(os.path.join(PROJECT_ROOT, ".env"))
 
 DEBUG = get_bool_from_env("DEBUG", True)
 
