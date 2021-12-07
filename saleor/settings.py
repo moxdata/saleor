@@ -15,6 +15,7 @@ from django.core.management.utils import get_random_secret_key
 from pytimeparse import parse
 from sentry_sdk.integrations.celery import CeleryIntegration
 from sentry_sdk.integrations.django import DjangoIntegration
+from dotenv import load_dotenv
 
 
 def get_list(text):
@@ -30,6 +31,9 @@ def get_bool_from_env(name, default_value):
             raise ValueError("{} is an invalid value for {}".format(value, name)) from e
     return default_value
 
+PROJECT_ROOT = os.path.normpath(os.path.join(os.path.dirname(__file__), ".."))
+
+load_dotenv(os.path.join(PROJECT_ROOT, ".env"))
 
 DEBUG = get_bool_from_env("DEBUG", True)
 
